@@ -57,11 +57,11 @@ public class MainActivity extends AppCompatActivity {
                 if(checkedId == R.id.radioButtonPlato) {
 
 
+                    array.clear();
                     array.addAll(Arrays.asList(listaPlatos));
+                    adapter.clear();
                     adapter.addAll(array);
                     adapter.notifyDataSetChanged();
-                    // create a new ListView, set the adapter and item click listener
-
                     listView.setAdapter(adapter);
                    // listView.setOnItemClickListener(new OnItemClickListenerListViewItem());
 
@@ -69,6 +69,13 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "choice: plato",
                             Toast.LENGTH_SHORT).show();
                 } else if(checkedId == R.id.radioButtonPostre) {
+                    array.clear();
+                    array.addAll(Arrays.asList(listaPostre));
+                    adapter.clear();
+                    adapter.addAll(array);
+                    adapter.notifyDataSetChanged();
+                    listView.setAdapter(adapter);
+
                     Toast.makeText(getApplicationContext(), "choice: postre",
                             Toast.LENGTH_SHORT).show();
                 }else if(checkedId == R.id.radioButtonBebida) {
