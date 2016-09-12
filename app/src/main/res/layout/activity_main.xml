@@ -31,8 +31,8 @@
             android:text="RESERVAR MESA"
             android:id="@+id/toggleButton"
             android:checked="false"
-            android:textOff="Re"
-            android:textOn="The text for the button when it is checked." />
+            android:textOff="RESERVAR MESA"
+            android:textOn="DELIVERY" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -45,7 +45,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/horarios"
-            android:spinnerMode="dropdown" />
+            android:spinnerMode="dropdown"
+            android:entries="@array/spinnerItems"
+            />
 
         <Switch
             android:layout_width="fill_parent"
@@ -59,13 +61,19 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
-            android:id="@+id/textView2"
+            android:text=""
+            android:id="@+id/listadoAPedir"
             android:background="#48a835"
             android:padding="10dp"
             android:layout_margin="10dp"
-            android:singleLine="true"
-            android:shadowColor="#838383" />
+            android:singleLine="false"
+            android:lines="4"
+            android:maxLines = "20"
+
+            android:scrollbars = "vertical"
+
+            android:shadowColor="#838383"
+            android:textSize="8dp" />
 
         <RadioGroup
             android:layout_width="wrap_content"
