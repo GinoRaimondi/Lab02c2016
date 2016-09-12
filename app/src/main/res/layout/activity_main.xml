@@ -30,7 +30,9 @@
             android:layout_height="wrap_content"
             android:text="RESERVAR MESA"
             android:id="@+id/toggleButton"
-            android:checked="false" />
+            android:checked="false"
+            android:textOff="Re"
+            android:textOn="The text for the button when it is checked." />
 
         <TextView
             android:layout_width="wrap_content"
@@ -103,21 +105,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="AGREGAR"
-                android:id="@+id/botonAgregar" />
+                android:id="@+id/botonAgregar"
+                android:textSize="10dp" />
 
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="CONFIRMAR PEDIDO"
-                android:id="@+id/botonConfirmar" />
+                android:id="@+id/botonConfirmar"
+                android:textSize="10dp" />
 
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="REINICIAR"
-                android:id="@+id/botonReiniciar" />
+                android:id="@+id/botonReiniciar"
+                android:textSize="10dp" />
         </LinearLayout>
 
         <ListView

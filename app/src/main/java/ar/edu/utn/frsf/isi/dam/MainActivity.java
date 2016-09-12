@@ -10,11 +10,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 
 import java.text.DecimalFormat;
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     ListView listView;
 
+    ToggleButton toggle;
+
 
     private RadioGroup radioGroup;
 
@@ -41,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         listView = (ListView)findViewById(R.id.listViewElementoMenu);
+        toggle = (ToggleButton)findViewById(R.id.toggleButton);
         iniciarListas();
 
         final ArrayList array = new ArrayList();
@@ -48,6 +53,18 @@ public class MainActivity extends AppCompatActivity {
         final ArrayAdapter adapter = new ArrayAdapter<ArrayList>(this, android.R.layout.simple_list_item_single_choice);
 
         radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+
+
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    // The toggle is enabled
+                    toggle.setText("Apreto");
+                } else {
+                    toggle.setText("No apreto");
+                }
+            }
+        });
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
