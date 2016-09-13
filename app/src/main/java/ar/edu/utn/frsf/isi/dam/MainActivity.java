@@ -46,7 +46,10 @@ public class MainActivity extends AppCompatActivity {
 
     Button agregar;
     Button botonReiniciar;
+    Button botonConfirmar;
 
+    Boolean pedidoConfirmado = false;
+    ElementoMenu elementoMenu = null;
     TextView listadoAPedir;
 
 
@@ -60,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         toggle = (ToggleButton) findViewById(R.id.toggleButton);
         agregar = (Button) findViewById(R.id.botonAgregar);
         botonReiniciar = (Button) findViewById(R.id.botonReiniciar);
+        botonConfirmar = (Button) findViewById(R.id.botonConfirmar);
         listadoAPedir = (TextView) findViewById(R.id.listadoAPedir);
 
         iniciarListas();
@@ -89,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 // Debemos borrar el listado a pedir y actualizar
 
                 pedidoArmado.clear();
+                pedidoConfirmado=false;
                 actualizarListaPedidos();
 
                 Toast.makeText(getBaseContext(), "Se ha reiniciado su pedido ", Toast.LENGTH_SHORT).show();
@@ -97,39 +102,55 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        botonConfirmar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pedidoConfirmado=true;
+                actualizarListaPedidos();
+
+                Toast.makeText(getBaseContext(), "Se ha confirmado su pedido ", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        agregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(pedidoConfirmado) {
+                    Toast.makeText(getBaseContext(), "No se pueden agregar más elementos", Toast.LENGTH_SHORT).show();
+                }else{
+                            /* ElementoMenu elementoMenu = (ElementoMenu) listView.getSelectedItem();
+                             Toast.makeText(getBaseContext(), elementoMenu.toString(), Toast.LENGTH_LONG).show();*/
+
+                    //Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+                    // item Es el texto del elemento seleccionado.
+                    // Debemos agregarlo a una lista o al textview
+
+                    if(elementoMenu==null){
+                        Toast.makeText(getBaseContext(), "Se debe seleccionar un elemento", Toast.LENGTH_SHORT).show();
+                    }else {
+
+                        // Mostramos todos los datos guardados
+                        Toast.makeText(getBaseContext(), "Ha agregado " + elementoMenu.getNombre(), Toast.LENGTH_SHORT).show();
+
+                        pedidoArmado.add(elementoMenu);
+
+                        actualizarListaPedidos();
+                        //Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, final View view, final int position,
                                     long id) {
 
-                agregar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        /* ElementoMenu elementoMenu = (ElementoMenu) listView.getSelectedItem();
-                         Toast.makeText(getBaseContext(), elementoMenu.toString(), Toast.LENGTH_LONG).show();*/
-
-                        //Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
-                        // item Es el texto del elemento seleccionado.
-                        // Debemos agregarlo a una lista o al textview
-
-                        // Elemento pedido
-                        ElementoMenu elementoMenu = (ElementoMenu) listView.getItemAtPosition(position);
-
-                        item = ((TextView) view).getText().toString();
-
-                        // Mostramos todos los datos guardados
-                        Toast.makeText(getBaseContext(), "Ha agregado " + elementoMenu.getNombre(), Toast.LENGTH_SHORT).show();
 
 
-                        pedidoArmado.add(elementoMenu);
-
-                        actualizarListaPedidos();
-                        //Toast.makeText(getBaseContext(), item, Toast.LENGTH_LONG).show();
-
-                    }
-                });
+                // Elemento pedido
+                elementoMenu = (ElementoMenu) listView.getItemAtPosition(position);
 
 
             }
@@ -169,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
         listView.clearChoices();
         listView.setItemChecked(-1, true);
+        elementoMenu = null;
         //listView.setAdapter(null);
 
         // Limpiamos el array y le cargamos la lista con los elementos a mostrar
@@ -243,17 +265,18 @@ public class MainActivity extends AppCompatActivity {
         listadoAPedir.setText("");
 
         StringBuilder builder = new StringBuilder();
-
+        Double total=0.0;
 
         for (int i = 0; i < pedidoArmado.size(); i++) {
 
             Integer elemento = i+1;
             builder.append("Elemento " + elemento + " : " + pedidoArmado.get(i).toString() + "\n");
-
-            // listadoAPedir.append("Elemento " + i  + " : " + pedidoArmado.get(i).toString() + "\n");
-
+            total+= pedidoArmado.get(i).getPrecio();
         }
 
+        if(pedidoConfirmado){
+            builder.append("Total: $"+f.format(total));
+        }
         listadoAPedir.setText(builder.toString());
 
 
